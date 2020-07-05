@@ -1,0 +1,37 @@
+
+* {
+	box-sizing: border-box;
+	
+  &:after {
+		content: "";
+		clear: both;
+		display: block;
+	}
+	
+	&:after,
+	&:before {
+		box-sizing: border-box;
+	}
+}
+
+i,
+a,
+sup, 
+img,
+sub,
+span,
+small,
+input, 
+label,
+button,
+strong,
+textarea {
+	&:after {
+		display: inherit
+	}
+}
+
+
+
+
+
