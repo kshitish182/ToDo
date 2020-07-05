@@ -1,0 +1,31 @@
+html {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	height: 100%;
+	width: 100%;
+
+	background: white;
+
+	@include mq(xs) {
+		background: yellow; 
+	}
+
+	@include mq(sm) {
+		background: blue;
+	}
+
+	@include mq(md) {
+		background: magenta; 
+	}
+
+	@include mq(lg) {
+		background: orange;
+	}
+
+	@include mq(xl) {
+		background: black;
+	}
+}

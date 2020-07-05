@@ -53,7 +53,7 @@
 		}
 	}
 
-	@else {
-		@error "#{$breakpoint} doesnot exist";
+	@else { 
+		@error Invalid breakpoint unquote(":") "#{$breakpoint}" doesnot exist;
 	}
 }
