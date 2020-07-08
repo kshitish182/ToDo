@@ -1,0 +1,23 @@
+header {
+	background: $header-bg;
+	padding: 10px 15px;
+}
+
+.header {
+	@include e(text) {
+		font-size: 24px;
+		font-weight: bold;
+
+		&:hover {
+			color: #fff;
+		}
+	}
+
+	@include e(icons) {
+		&:hover {
+			path {
+				fill: #fff;
+			}
+		}
+	}
+}
