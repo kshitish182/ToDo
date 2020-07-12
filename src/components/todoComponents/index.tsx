@@ -3,15 +3,24 @@ import React from "react";
 interface Todos {
 	id: number;
 	todo: string;
+	isCompleted: boolean;
 }
 
 const TodoMain = () => {
+	const ENTER_BTN_KEY_CODE = 13;
 	const [isInputShown, showInput] = React.useState<boolean>(false);
-	const [todos, addTodos] = React.useState<Todos[]>([{id: 0, todo: ''}]);
+	const [todos, addTodos] = React.useState<Todos[]>([{id: 0, todo: '', isCompleted: false}]);
 
 	const storeTodos = () => {
-		const inputContext:any = document.getElementById('todo-input');
-		addTodos([...todos, {id: todos.length, todo: inputContext.value || ''} ]);
+		const inputContext:any = document.getElementById('todo-input') || '';
+
+		if(!inputContext) {
+			return;
+		}
+		
+		console.log(inputContext.scrollHeight);
+		addTodos([...todos, {id: todos.length, todo: inputContext.value || '', isCompleted: false} ]);
+		inputContext.value="";
 	}
 
   return (
@@ -21,14 +30,26 @@ const TodoMain = () => {
       </div>
       <ul className="list">
 				{todos.map((value,idx) =>  (
-					!!value.todo ? (<li className="list__item" key={`todo-${idx}`}> 
+					!!value.todo && 
+					(<li className="list__item" style={{textDecoration: value.isCompleted ? "line-through" : 'none'}} key={`todo-${idx}`}>
+						<input type="checkbox" id="checklist" checked={value.isCompleted} onChange={() => { 
+							value.isCompleted = !value.isCompleted;
+							addTodos([...todos]);
+							}} />
 						{value.todo}
-					</li>) : <></>		
+					</li>)	
 				))}
         {isInputShown && (
           <li className="list__item">
-            <input type="checkbox" id="checklist" />
-            <input type="text" id="todo-input"/>
+						<textarea  
+						id="todo-input" 
+						placeholder="Enter your task here" 
+						onKeyDown={(event) => {
+							if(event.keyCode === ENTER_BTN_KEY_CODE) {
+								return storeTodos();
+							}	
+						}}
+						/>
             <button className="btn btn--transparent" onClick={storeTodos}>
               <svg className="icon-plus" width="13" height="13">
                 <path
