@@ -2,10 +2,10 @@ import React from 'react';
 
 const Header = () => (
 	<header>
-		<div className="container">
-			<div className="header">
+		<div className="header container">
+			<div className="col-left flex-wrapper">
 				<div className="header__icons">
-					<svg width="24" height="24" viewBox="0 0 24 24">
+					<svg className="icon-menu" width="24" height="24" viewBox="0 0 24 24">
 						<path 
 							fill="currentColor" 
 							fillRule="evenodd" 
@@ -13,10 +13,12 @@ const Header = () => (
 						/>
 					</svg>
 				</div>
-				<div className="header__text">
+				<div className="header__main-header">
 					ToDo
 				</div>
 			</div>
+			<div className="col-mid" />
+			<div className="col-right" />
 		</div>
 	</header>
 );

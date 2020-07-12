@@ -1,23 +1,38 @@
 header {
 	background: $header-bg;
-	padding: 10px 15px;
 }
 
 .header {
-	@include e(text) {
+	padding: 10px 0;
+	
+	@include e(main-header) {
 		font-size: 24px;
 		font-weight: bold;
-
-		&:hover {
-			color: #fff;
-		}
+		color: #fff;
+		cursor: pointer;
 	}
 
 	@include e(icons) {
-		&:hover {
+		cursor: pointer;
+
+		svg {
+			margin-right: 10px;
 			path {
 				fill: #fff;
 			}
+		}	
+
+		.icon-menu {
+			width: 34px;
+			height: 34px;
+			margin: -3px 10px -3px 0;
+			vertical-align: middle;
 		}
+
+		// &:hover {
+		// 	path {
+		// 		fill: #fff;
+		// 	}
+		// }
 	}
 }

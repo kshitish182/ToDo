@@ -1,31 +1,44 @@
-html {
-	height: 100%;
-	width: 100%;
+
+// mixin "mq" test - works properly
+
+// body {
+// 	height: 100%;
+// 	width: 100%;
+
+// 	background: white;
+
+// 	@include mq(xs) {
+// 		background: yellow; 
+// 	}
+
+// 	@include mq(sm) {
+// 		background: blue;
+// 	}
+
+// 	@include mq(md) {
+// 		background: magenta; 
+// 	}
+
+// 	@include mq(lg) {
+// 		background: orange;
+// 	}
+
+// 	@include mq(xl) {
+// 		background: black;
+// 	}
+// }
+
+
+// layout check
+
+.col-left {
+	background-color: red;
 }
 
-body {
-	height: 100%;
-	width: 100%;
+.col-mid {
+	background-color: yellow;
+}
 
-	background: white;
-
-	@include mq(xs) {
-		background: yellow; 
-	}
-
-	@include mq(sm) {
-		background: blue;
-	}
-
-	@include mq(md) {
-		background: magenta; 
-	}
-
-	@include mq(lg) {
-		background: orange;
-	}
-
-	@include mq(xl) {
-		background: black;
-	}
+.col-right {
+	background-color: blue;
 }

@@ -1,0 +1,19 @@
+// This file includes all miscallenous classes 
+
+.flex-wrapper {
+	display: flex;
+
+	@include m(align-ctr) {
+		align-items: center;
+	}
+
+	@include m(justify-ctr) {
+		justify-content: center;
+	}
+
+	@include m(ctr) {
+		justify-content: center;
+		align-items: center;
+	}
+}
+
