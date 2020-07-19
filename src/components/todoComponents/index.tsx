@@ -46,6 +46,8 @@ const TodoMain = () => {
 						placeholder="Enter your task here" 
 						onKeyDown={(event) => {
 							if(event.keyCode === ENTER_BTN_KEY_CODE) {
+                showInput(false);
+                
 								return storeTodos();
 							}	
 						}}

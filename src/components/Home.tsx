@@ -3,7 +3,9 @@ import React from "react";
 import Header from "./Header";
 import TodoMain from "./todoComponents";
 
-const Home = () => (
+const Home = () => {  
+  
+  return (
   <>
     <Header />
     <main className="main-content">
@@ -16,6 +18,6 @@ const Home = () => (
       </div>
     </main>
   </>
-);
+)}
 
 export default Home;
