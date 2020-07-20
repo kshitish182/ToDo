@@ -1,3 +1,4 @@
+import Status from '../enum/todoStatus'; 
 import Header from '../enum/tableHeader';
 import { Todos } from '../types/todoData';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
@@ -38,7 +39,7 @@ export const getSheet = async () => {
 		await doc.loadInfo();
 		const sheet = doc.sheetsById[SHEET_ID];
 		const result = await sheet.getRows()
-		console.log(result);
+		// console.log(result);
 
 		return result;
 	} catch(err) {
@@ -48,14 +49,13 @@ export const getSheet = async () => {
 
 // updating data
 
-export const updateData = async (rowId: number) => {
+export const updateTodoStatus = async (rowId: number) => {
 	try {
 		await initializeConnection();
 		await doc.loadInfo();
 		const sheet = doc.sheetsById[SHEET_ID];
 		const result = await sheet.getRows({limit: 1, offset: rowId - 1});
-		console.log(result);
-		result[0].status = 1;
+		result[0].status = result[0].status == Status.COMPLETED ? Status.NOT_COMPLETED: Status.COMPLETED;
 		await result[0].save();
 	} catch(err) {
 		console.log(err);

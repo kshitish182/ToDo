@@ -1,6 +1,7 @@
 import Status from '../enum/todoStatus';
-import TodoData, {Todos} from '../types/todoData';
+import TodoData from '../types/todoData';
 import { getSheet } from '../services/updateData';
+
 
 export let todoData: TodoData = {
 	isLoading: false,
@@ -16,13 +17,13 @@ export const getAllData = async () => {
 	todoData = {...todoData, isLoading: true}
 	const data = await getSheet(); 
 	
-	if(!data) {
-		return todoData;
+	if(!data || !data.length) {
+		return {...todoData, isLoading: false};
 	}
 
 	const todos = data.map(value => (
 		{
-			id: value.id,
+			id: value.rowId,
 			todo: value.todo,
 			status: value.status
 		}

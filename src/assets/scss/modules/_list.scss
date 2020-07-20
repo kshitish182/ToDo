@@ -1,10 +1,26 @@
 .list {
+	margin-bottom: 20px;
+
 	@include e(item) {
 		display: flex;
 		align-items: center;
+		word-break: break-word;
 
 		&:not(:last-child) {
 			margin-bottom: 15px;
 		}
+
+		@include m(bordered) {
+			border-bottom: 1px solid black;
+			padding-bottom: 5px;
+		}
+
+	}
+
+	@include e(content) {
+		width: calc(100% - 30px);
 	}
 }
+
+
+

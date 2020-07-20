@@ -15,7 +15,25 @@
 		svg {
 			width: 12px;
 			height: 12px;
-			margin-right: 10px;
+		}
+
+		.indicator {
+			background: none;
+			margin-right: 5px;
+
+			path {
+				fill: $black;
+			}
+		}
+
+		&:hover {
+			.indicator {
+				background: $primary-color;
+
+				path {
+					fill: $white;
+				}
+			}
 		}
 	}
 
@@ -23,5 +41,10 @@
 		background: none;
 		border: none;
 		padding: 0;
+		color: $btn-primary;
+
+		&:hover {
+			color: $primary-color;
+		}
 	}
 }
