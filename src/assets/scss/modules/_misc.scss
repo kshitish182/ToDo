@@ -17,3 +17,13 @@
 	}
 }
 
+.empty-section {
+	margin-top: 80px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.icon-circle {
+		margin-bottom: 5px;
+	}
+}

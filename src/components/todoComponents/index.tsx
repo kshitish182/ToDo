@@ -1,9 +1,11 @@
 import React from "react";
 
 import Status from "../../enum/todoStatus";
+import LoaderComponent from "./LoaderComponent";
 import TodoData, { Todos } from "../../types/todoData";
 import { todoData, getAllData } from "../../selectors/todoData";
 import { addToSheet, updateTodoStatus } from "../../services/updateData";
+
 
 
 const TodoMain = () => {
@@ -19,7 +21,6 @@ const TodoMain = () => {
     }
 
     const todoId: number = todoDatas.data[todoDatas.data.length - 1].id*1 + 1;
-    console.log(todoDatas.data[todoDatas.data.length - 1]);
     const createdTodo: Todos = {
       id: todoId,
       todo: inputContext.value || "",
@@ -47,7 +48,7 @@ const TodoMain = () => {
 
   // TODO: Change implementation logic
   const handleStatusChange = (value: Todos) => {
-    value.status = value.status == Status.COMPLETED
+    value.status = value.status*1 === Status.COMPLETED
       ? Status.NOT_COMPLETED
       : Status.COMPLETED;
 
@@ -61,7 +62,7 @@ const TodoMain = () => {
         <div className="title__text">Today</div>
       </div>
       {todoDatas.isLoading ? (
-        "loading..."
+        <LoaderComponent />
       ) : (
         <>
           <ul className="list">
@@ -74,7 +75,7 @@ const TodoMain = () => {
                   style={{
                     textDecoration:
                     // TODO: Change this workaround
-                      (value.status == Status.COMPLETED
+                      (value.status*1 === Status.COMPLETED
                         ? "line-through"
                         : "none")
                   }}
@@ -83,7 +84,7 @@ const TodoMain = () => {
                   <input
                     type="checkbox"
                     id={`checklist-${value.id}`}
-                    checked={value.status == Status.COMPLETED}
+                    checked={value.status*1 === Status.COMPLETED}
                     onChange={() => handleStatusChange(value)}
                   />
                   <label htmlFor={`checklist-${value.id}`} className="checkbox">

@@ -55,7 +55,7 @@ export const updateTodoStatus = async (rowId: number) => {
 		await doc.loadInfo();
 		const sheet = doc.sheetsById[SHEET_ID];
 		const result = await sheet.getRows({limit: 1, offset: rowId - 1});
-		result[0].status = result[0].status == Status.COMPLETED ? Status.NOT_COMPLETED: Status.COMPLETED;
+		result[0].status = result[0].status*1 === Status.COMPLETED ? Status.NOT_COMPLETED: Status.COMPLETED;
 		await result[0].save();
 	} catch(err) {
 		console.log(err);
