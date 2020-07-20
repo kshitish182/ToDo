@@ -3,7 +3,7 @@ import React from "react";
 import Status from "../../enum/todoStatus";
 import TodoData, { Todos } from "../../types/todoData";
 import { todoData, getAllData } from "../../selectors/todoData";
-import { addToSheet, updateTodoStatus, getSheet } from "../../services/updateData";
+import { addToSheet, updateTodoStatus } from "../../services/updateData";
 
 
 const TodoMain = () => {
@@ -18,8 +18,10 @@ const TodoMain = () => {
       return;
     }
 
+    const todoId: number = todoDatas.data[todoDatas.data.length - 1].id*1 + 1;
+    console.log(todoDatas.data[todoDatas.data.length - 1]);
     const createdTodo: Todos = {
-      id: todoDatas.data.length,
+      id: todoId,
       todo: inputContext.value || "",
       status: Status.NOT_COMPLETED,
     };
@@ -38,7 +40,6 @@ const TodoMain = () => {
     })();
   }, []);
 
-  console.log(todoDatas);
 
   const handleUserSubmit = () => {
     storeTodos();
@@ -65,8 +66,7 @@ const TodoMain = () => {
         <>
           <ul className="list">
             {todoDatas.data.map((value, idx) => {
-              console.log(value)
-
+             
               return(
               !!value.todo && (
                 <li
