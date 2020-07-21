@@ -6,20 +6,18 @@ import TodoData, { Todos } from "../../types/todoData";
 import { todoData, getAllData } from "../../selectors/todoData";
 import { addToSheet, updateTodoStatus } from "../../services/updateData";
 
-
-
 const TodoMain = () => {
   const ENTER_BTN_KEY_CODE = 13;
-  const [todoDatas, addTodos] = React.useState<TodoData>(todoData);
+  const [todoDatas, addTodos] = React.useState<TodoData | null>(null);
   const [isInputShown, showInput] = React.useState<boolean>(false);
 
   const storeTodos = () => {
     const inputContext: any = document.getElementById("todo-input") || "";
-
-    if (!inputContext) {
+    
+    if (!inputContext || !todoDatas) {
       return;
     }
-
+    
     const todoId: number = todoDatas.data[todoDatas.data.length - 1].id*1 + 1;
     const createdTodo: Todos = {
       id: todoId,
@@ -34,7 +32,7 @@ const TodoMain = () => {
 
   React.useEffect(() => {
     (async () => {
-      addTodos({ ...todoDatas, isLoading: true });
+      addTodos({ ...todoData, isLoading: true });
       const result = await getAllData();
 
       addTodos(result);
@@ -47,13 +45,26 @@ const TodoMain = () => {
   };
 
   // TODO: Change implementation logic
-  const handleStatusChange = (value: Todos) => {
+  const handleStatusChange = async (value: Todos) => {  
+     if(!todoDatas) {
+        return;
+      }
+    
     value.status = value.status*1 === Status.COMPLETED
+    ? Status.NOT_COMPLETED
+    : Status.COMPLETED;
+    
+    addTodos({ ...todoDatas });
+
+    const result = await updateTodoStatus(value.id, value.status);
+    
+    // Reverting state if update fails
+    if(!result) {
+      value.status = value.status*1 === Status.COMPLETED
       ? Status.NOT_COMPLETED
       : Status.COMPLETED;
-
-    addTodos({ ...todoDatas });
-    updateTodoStatus(value.id);
+      addTodos({ ...todoDatas });
+    }
   }
 
   return (
@@ -61,10 +72,13 @@ const TodoMain = () => {
       <div className="title title--lg">
         <div className="title__text">Today</div>
       </div>
-      {todoDatas.isLoading ? (
+      {todoDatas?.isLoading || !todoDatas ? (
         <LoaderComponent />
       ) : (
         <>
+        {
+          todoDatas && (
+          <>
           <ul className="list">
             {todoDatas.data.map((value, idx) => {
              
@@ -142,6 +156,9 @@ const TodoMain = () => {
             </div>
             <span>Add task</span>
           </button>
+          </>
+          )
+        }
         </>
       )}
     </>

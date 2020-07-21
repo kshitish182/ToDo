@@ -1,9 +1,10 @@
 import React from 'react';
-import Spinner from '../common/Spinner';
+// import Spinner from '../common/Spinner';
 
 const LoaderComponent = () => (
   <div className="empty-section">
-    <Spinner />
+    {/* TODO: Implement loader screen */}
+    {/* <Spinner /> */}
     <div className="text--secondary">
       Loading
     </div>

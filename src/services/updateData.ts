@@ -1,4 +1,3 @@
-import Status from '../enum/todoStatus'; 
 import Header from '../enum/tableHeader';
 import { Todos } from '../types/todoData';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
@@ -18,19 +17,18 @@ const initializeConnection = async () => {
 }
 
 export const addToSheet = async (row: Todos) => {
-	await initializeConnection();	
-	await doc.loadInfo();
-
-	const sheet = doc.sheetsById[SHEET_ID];
-		sheet.addRow({
+	try {
+		await initializeConnection();	
+		await doc.loadInfo();
+		const sheet = doc.sheetsById[SHEET_ID];
+		await sheet.addRow({
 			[Header.ROW_ID]: row.id, 
 			[Header.TODO]: row.todo, 
 			[Header.STATUS]: row.status
-		})
-		.then( result => {
-			console.log(result);
-		})
-		.catch(err => console.log('error'));
+		});
+	} catch(err) {
+		console.log(err);
+	}
 }
 
 export const getSheet = async () => {	
@@ -39,7 +37,6 @@ export const getSheet = async () => {
 		await doc.loadInfo();
 		const sheet = doc.sheetsById[SHEET_ID];
 		const result = await sheet.getRows()
-		// console.log(result);
 
 		return result;
 	} catch(err) {
@@ -49,15 +46,19 @@ export const getSheet = async () => {
 
 // updating data
 
-export const updateTodoStatus = async (rowId: number) => {
+export const updateTodoStatus = async (rowId: number, status: number) => {
 	try {
 		await initializeConnection();
 		await doc.loadInfo();
 		const sheet = doc.sheetsById[SHEET_ID];
 		const result = await sheet.getRows({limit: 1, offset: rowId - 1});
-		result[0].status = result[0].status*1 === Status.COMPLETED ? Status.NOT_COMPLETED: Status.COMPLETED;
+		result[0].status = status;
 		await result[0].save();
+
+		return true;
 	} catch(err) {
 		console.log(err);
+		
+		return false;
 	}
 }

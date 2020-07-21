@@ -14,7 +14,7 @@ export let todoData: TodoData = {
 
 // get all data from the sheets
 export const getAllData = async () => {
-	todoData = {...todoData, isLoading: true}
+	// todoData = {...todoData, isLoading: true}
 	const data = await getSheet(); 
 	
 	if(!data || !data.length) {
