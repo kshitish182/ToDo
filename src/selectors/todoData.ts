@@ -21,7 +21,7 @@ export const getAllData = async () => {
 		return {...todoData, isLoading: false};
 	}
 
-	const todos = data.map(value => (
+	const todos = data.map((value: any) => (
 		{
 			id: value.rowId,
 			todo: value.todo,

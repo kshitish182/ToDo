@@ -8,19 +8,17 @@ import { addToSheet, updateTodoStatus } from "../../services/updateData";
 import TodoListItem from "./TodoListItem";
 
 const TodoMain = () => {
-  // const ENTER_BTN_KEY_CODE = 13;
   // TODO: Rename this local state name
   const [todoDatas, addTodos] = React.useState<TodoData | null>(null);
-  // const [isInputShown, showInput] = React.useState<boolean>(false);
 
   const storeTodos = () => {
     const inputContext: any = document.getElementById("todo-input") || "";
-    
+
     if (!inputContext || !todoDatas) {
       return;
     }
-    
-    const todoId: number = todoDatas.data[todoDatas.data.length - 1].id*1 + 1;
+
+    const todoId: number = todoDatas.data[todoDatas.data.length - 1].id * 1 + 1;
     const createdTodo: Todos = {
       id: todoId,
       todo: inputContext.value || "",
@@ -41,33 +39,34 @@ const TodoMain = () => {
     })();
   }, []);
 
-
   const handleUserSubmit = () => {
     storeTodos();
   };
 
   // TODO: Change implementation logic
-  const handleStatusChange = async (value: Todos) => {  
-     if(!todoDatas) {
-        return;
-      }
-    
-    value.status = value.status*1 === Status.COMPLETED
-    ? Status.NOT_COMPLETED
-    : Status.COMPLETED;
-    
+  const handleStatusChange = async (value: Todos) => {
+    if (!todoDatas) {
+      return;
+    }
+
+    value.status =
+      value.status * 1 === Status.COMPLETED
+        ? Status.NOT_COMPLETED
+        : Status.COMPLETED;
+
     addTodos({ ...todoDatas });
 
     const result = await updateTodoStatus(value.id, value.status);
-    
+
     // Reverting state if update fails
-    if(!result) {
-      value.status = value.status*1 === Status.COMPLETED
-      ? Status.NOT_COMPLETED
-      : Status.COMPLETED;
+    if (!result) {
+      value.status =
+        value.status * 1 === Status.COMPLETED
+          ? Status.NOT_COMPLETED
+          : Status.COMPLETED;
       addTodos({ ...todoDatas });
     }
-  }
+  };
 
   return (
     <>
@@ -78,11 +77,15 @@ const TodoMain = () => {
         <LoaderComponent />
       ) : (
         <>
-        {
-          todoDatas && ( <TodoListItem todoData={todoDatas} handleStatusChange={handleStatusChange} handleUserSubmit={handleUserSubmit} />)
-        }
-    </>
-    )}
+          {todoDatas && (
+            <TodoListItem
+              todoData={todoDatas}
+              handleStatusChange={handleStatusChange}
+              handleUserSubmit={handleUserSubmit}
+            />
+          )}
+        </>
+      )}
     </>
   );
 };
