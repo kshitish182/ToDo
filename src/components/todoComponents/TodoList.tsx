@@ -1,13 +1,16 @@
 import React from 'react';
+
+import TodoListItem from "./TodoListItem";
 import Status from '../../enum/todoStatus';
 import TodoData, {Todos} from "../../types/todoData";
-interface TodoListItemProps {
+
+interface TodoListProps {
   todoData: TodoData
   handleStatusChange: (value: Todos ) => void;
   handleUserSubmit: (value: Todos) => void;
 }
 
-const TodoListItem = (props: TodoListItemProps) => {
+const TodoList = (props: TodoListProps) => {
   const {todoData, handleStatusChange, handleUserSubmit} = props;
 
   const [isInputShown, showInput] = React.useState<boolean>(false);
@@ -29,51 +32,14 @@ const TodoListItem = (props: TodoListItemProps) => {
   return (
   <>
   <ul className="list">
-    {todoData.data.map((value, idx) => (
-      !!value.todo && (
-        <li
-          className="list__item list__item--bordered"
-          style={{
-            textDecoration:
-            // TODO: Change this workaround
-              (value.status*1 === Status.COMPLETED
-                ? "line-through"
-                : "none")
-          }}
-          key={`todo-${idx}`}
-        >
-          <input
-            type="checkbox"
-            id={`checklist-${value.id}`}
-            checked={value.status*1 === Status.COMPLETED}
-            onChange={() => handleStatusChange(value)}
-          />
-          <label htmlFor={`checklist-${value.id}`} className="checkbox">
-            <div className="icon-tick"/>
-          </label>
-          <div className="list__content" onClick={() => setEditStatus(true)}>
-          {value.todo}
-          </div>
-
-          {/* {isEditable && (
-            <input
-            type="text"
-            id="todo-inputss"
-            placeholder="Enter your task here (Press 'enter' when you're done)"
-            className="input-lg"
-            value={value.todo}
-            onKeyDown={(event) => {
-              if (event.keyCode === ENTER_BTN_KEY_CODE) {
-                showInput(false);
-  
-                return handleUserSubmit();
-              }
-            }}
-            />
-          )} */}
-
-
-        </li>
+    {todoData.data.map((data: Todos, idx) => (
+      // Not mapping empty todos
+      !!data.todo && (
+        <TodoListItem 
+          key={idx}
+          todo={data}
+          handleStatusChange={handleStatusChange}
+        />
       )))
     }
     {isInputShown && (
@@ -129,4 +95,4 @@ const TodoListItem = (props: TodoListItemProps) => {
 );
 }
 
-export default TodoListItem;
+export default TodoList;
