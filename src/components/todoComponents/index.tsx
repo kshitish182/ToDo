@@ -1,47 +1,41 @@
 import React from "react";
 
+import TodoList from "./TodoList";
 import Status from "../../enum/todoStatus";
 import LoaderComponent from "./LoaderComponent";
 import TodoData, { Todos } from "../../types/todoData";
 import { todoData, getAllData } from "../../selectors/todoData";
 import { addToSheet, updateTodoStatus } from "../../services/updateData";
-import TodoListItem from "./TodoListItem";
+
+// TODO: Create a custom expandable textarea component
+// import TextArea from '../common/TextArea';
 
 const TodoMain = () => {
   // TODO: Rename this local state name
   const [todoDatas, addTodos] = React.useState<TodoData | null>(null);
 
-  const storeTodos = () => {
+  const handleUserSubmit = (value: Todos) => {
     const inputContext: any = document.getElementById("todo-input") || "";
 
     if (!inputContext || !todoDatas) {
       return;
     }
 
-    const todoId: number = todoDatas.data[todoDatas.data.length - 1].id * 1 + 1;
-    const createdTodo: Todos = {
-      id: todoId,
-      todo: inputContext.value || "",
-      status: Status.NOT_COMPLETED,
-    };
-
-    addTodos({ ...todoDatas, data: [...todoDatas.data, createdTodo] });
+    addTodos({ ...todoDatas, data: [...todoDatas.data, value] });
     inputContext.value = "";
-    addToSheet(createdTodo);
+    addToSheet(value);
   };
 
   React.useEffect(() => {
     (async () => {
+      // loading iniital state 
       addTodos({ ...todoData, isLoading: true });
       const result = await getAllData();
 
+      // overwriting initial state with the data recieved
       addTodos(result);
     })();
   }, []);
-
-  const handleUserSubmit = () => {
-    storeTodos();
-  };
 
   // TODO: Change implementation logic
   const handleStatusChange = async (value: Todos) => {
@@ -78,7 +72,7 @@ const TodoMain = () => {
       ) : (
         <>
           {todoDatas && (
-            <TodoListItem
+            <TodoList
               todoData={todoDatas}
               handleStatusChange={handleStatusChange}
               handleUserSubmit={handleUserSubmit}
