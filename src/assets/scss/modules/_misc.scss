@@ -1,0 +1,29 @@
+// This file includes all miscallenous classes 
+
+.flex-wrapper {
+	display: flex;
+
+	@include m(align-ctr) {
+		align-items: center;
+	}
+
+	@include m(justify-ctr) {
+		justify-content: center;
+	}
+
+	@include m(ctr) {
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+.empty-section {
+	margin-top: 80px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.icon-circle {
+		margin-bottom: 5px;
+	}
+}

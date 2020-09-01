@@ -1,0 +1,38 @@
+header {
+	background: $header-bg;
+}
+
+.header {
+	padding: 10px 0;
+	
+	@include e(main-header) {
+		font-size: 24px;
+		font-weight: bold;
+		color: #fff;
+		cursor: pointer;
+	}
+
+	@include e(icons) {
+		cursor: pointer;
+
+		svg {
+			margin-right: 10px;
+			path {
+				fill: #fff;
+			}
+		}	
+
+		.icon-menu {
+			width: 34px;
+			height: 34px;
+			margin: -3px 10px -3px 0;
+			vertical-align: middle;
+		}
+
+		// &:hover {
+		// 	path {
+		// 		fill: #fff;
+		// 	}
+		// }
+	}
+}

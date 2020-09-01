@@ -1,0 +1,48 @@
+input[type="checkbox"]{
+	display: none;
+
+	+ {
+		.checkbox {
+			cursor: pointer;
+			position: relative;
+			display: inline-flex;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			border: 1px solid $gray-light;
+			margin-right: 10px;
+			align-self: flex-start;
+			justify-content: center;
+			align-items: center;	
+
+			.icon-tick {
+				display: none;
+			}
+		}
+	}
+
+	&:checked {
+		+ {
+			.checkbox {
+				border-color: $primary-color;
+
+				.icon-tick {
+					display: block;
+				}
+			}
+		}
+	}
+}
+
+// Temporary tick icon 
+.icon-tick {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 10px;
+	height: 5px;
+	border: 1px solid;
+	border-width: 0 0 1px 1px;
+	border-color: $primary-color;
+	transform: translate(-50%, -70%) rotate(-45deg);
+}

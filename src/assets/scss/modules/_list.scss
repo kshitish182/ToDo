@@ -1,0 +1,36 @@
+.list {
+	margin-bottom: 20px;
+
+	@include e(item) {
+		display: flex;
+		align-items: center;
+		word-break: break-word;
+		font-size: 14px;
+
+		&:not(:last-child) {
+			margin-bottom: 15px;
+		}
+
+		@include m(bordered) {
+			border-bottom: 1px solid $gray-light;
+			padding-bottom: 5px;
+
+			&:hover {
+				border-color: $black;
+
+				.checkbox {
+					border-color: $black;
+				}
+			}
+
+		}
+
+	}
+
+	@include e(content) {
+		width: calc(100% - 30px);
+	}
+}
+
+
+
