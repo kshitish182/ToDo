@@ -16,7 +16,6 @@ const EditTodo = ({
   handleUserSubmit,
   createdTodo,
 }: EditTodoProps) => {
-	
   const handleKeyPressAction = (e: any) => {
     if (e.keyCode === ENTER_BTN_KEY_CODE) {
       showInput(false);

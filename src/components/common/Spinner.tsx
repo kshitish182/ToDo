@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Spinner = () => (
   <svg className="icon-spinner" width="20" height="20" viewBox="0 0 36 36">
@@ -7,4 +7,3 @@ const Spinner = () => (
 );
 
 export default Spinner;
-

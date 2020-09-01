@@ -28,7 +28,7 @@ const TodoMain = () => {
 
   React.useEffect(() => {
     (async () => {
-      // loading iniital state 
+      // loading iniital state
       addTodos({ ...todoData, isLoading: true });
       const result = await getAllData();
 

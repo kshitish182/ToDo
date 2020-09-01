@@ -1,6 +1,3 @@
 export interface Row {
-	[header: string]: string | number | boolean;
+  [header: string]: string | number | boolean;
 }
-
-
-
