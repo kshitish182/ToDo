@@ -41,6 +41,7 @@ const TodoList = (props: TodoListProps) => {
               <TodoListItem
                 key={idx}
                 todo={data}
+                todoData={todoData}
                 handleStatusChange={handleStatusChange}
               />
             )

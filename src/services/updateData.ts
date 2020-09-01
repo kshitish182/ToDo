@@ -62,3 +62,22 @@ export const updateTodoStatus = async (rowId: number, status: number) => {
 		return false;
 	}
 }
+
+export const updatedTodoData = async(todoData: Todos) => {
+	const { id , todo }= todoData;
+	try {
+		await initializeConnection();
+		await doc.loadInfo();
+		const sheet = doc.sheetsById[SHEET_ID];
+		const [result] = await sheet.getRows({limit: 1, offset: id - 1});
+		console.log(result, todo);
+		result.todo = todo;
+		await result.save();
+
+		return true;
+	}	catch(err) {
+		console.log(err);
+
+		return false;
+	}
+}
